@@ -1,11 +1,12 @@
 package app.comdev_sobo.httpsgithub.sunshine;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,8 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+
         ArrayList<String> arrayList = new ArrayList(7);
         arrayList.add("Today-Sunny-88/63");
         arrayList.add("Tomorrow-Foggy-70/46");
@@ -30,8 +33,10 @@ public class MainActivityFragment extends Fragment {
         arrayList.add("Sat-Sunny-76/68");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast,R.id.list_item_forecast_view, arrayList);
+        ListView listViewForecast = (ListView) v.findViewById(R.id.listview_forecast);
+        listViewForecast.setAdapter(arrayAdapter);
 
 
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return v;
     }
 }
