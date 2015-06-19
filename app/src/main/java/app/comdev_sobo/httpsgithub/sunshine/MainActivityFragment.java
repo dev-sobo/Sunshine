@@ -27,12 +27,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
+
+    private ArrayAdapter<String> mForecastAdapter;
 
     public MainActivityFragment() {
     }
@@ -55,6 +59,7 @@ public class MainActivityFragment extends Fragment {
         int id = item.getItemId();
         if (id==R.id.action_refresh) {
            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            //weatherTask.
             weatherTask.execute("94043");
             return true;
         }
@@ -66,17 +71,31 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ArrayList<String> arrayList = new ArrayList<>(7);
+       /* ArrayList<String> arrayList = new ArrayList<>(7);
         arrayList.add("Today-Sunny-88/63");
         arrayList.add("Tomorrow-Foggy-70/46");
         arrayList.add("Weds-Cloudy-72/63");
         arrayList.add("Thurs-Rainy-64/51");
         arrayList.add("Fri-Foggy-70/46");
-        arrayList.add("Sat-Sunny-76/68");
+        arrayList.add("Sat-Sunny-76/68");*/
+        String[] data = {
+                "Mon 6/23 - Sunny - 31/17",
+                "Tues 6/24 - Foggy - 21/8",
+                "Wed 6/25 - Cloudy - 22/17",
+                "Thurs 6/26 - Rainy - 18/11",
+                "Fri 6/27 - Foggy - 21/10",
+                "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
+                "Sun 6/29 - Sunny - 20/7"
+        };
+        List<String> weekForecast = new ArrayList<>(Arrays.asList(data));
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_view, arrayList);
+        mForecastAdapter = new ArrayAdapter<>(
+                getActivity(),
+                R.layout.list_item_forecast,
+                R.id.list_item_forecast_view,
+                weekForecast);
         ListView listViewForecast = (ListView) v.findViewById(R.id.listview_forecast);
-        listViewForecast.setAdapter(arrayAdapter);
+        listViewForecast.setAdapter(mForecastAdapter);
 
         return v;
     }
@@ -285,9 +304,22 @@ public class MainActivityFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
             // Only happen if there was an error.
             return null;
+        } // END OF doInBackground() METHOD
+
+
+        @Override
+        protected void onPostExecute(String[] result) {
+          //  super.onPostExecute(strings);
+            if (result != null) {
+                mForecastAdapter.clear();
+                for (String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+            }
+
         }
+
     }
 }
