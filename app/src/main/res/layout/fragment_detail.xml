@@ -37,10 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weatherIconId"
-        android:layout_centerVertical="true"
+        android:src="@drawable/art_clear"
+        android:layout_below="@+id/dateId"
         android:layout_toRightOf="@+id/dayId"
-        android:layout_toEndOf="@+id/dayId"
-        android:src="@drawable/art_clear"/>
+        android:layout_toEndOf="@+id/dayId" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,8 +48,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="18"
         android:id="@+id/temperatureId"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/weatherIconId"
-        android:layout_toStartOf="@+id/weatherIconId"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginBottom="39dp"
+        android:layout_alignBottom="@+id/weatherIconId"
+        android:layout_alignRight="@+id/dateId"
+        android:layout_alignEnd="@+id/dateId"
+        android:textIsSelectable="false"
+        android:textSize="65sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10"
+        android:id="@+id/lowTempId"
+        android:layout_alignBottom="@+id/weatherIconId"
+        android:layout_alignRight="@+id/temperatureId"
+        android:layout_alignEnd="@+id/temperatureId"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp" />
+
 </RelativeLayout>
