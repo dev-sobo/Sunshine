@@ -1,5 +1,6 @@
 package app.comdev_sobo.httpsgithub.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -96,6 +98,16 @@ public class MainActivityFragment extends Fragment {
                 weekForecast);
         ListView listViewForecast = (ListView) v.findViewById(R.id.listview_forecast);
         listViewForecast.setAdapter(mForecastAdapter);
+        listViewForecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getActivity(),mForecastAdapter.getItem(position), Toast.LENGTH_LONG).show();
+                String forecastStr = mForecastAdapter.getItem(position);
+                Intent detailActivityIntent = new Intent(getActivity(),DetailActivity.class);
+                detailActivityIntent.putExtra(Intent.EXTRA_TEXT,forecastStr);
+                startActivity(detailActivityIntent);
+            }
+        });
 
         return v;
     }
