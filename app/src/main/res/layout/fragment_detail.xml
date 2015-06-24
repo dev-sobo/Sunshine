@@ -33,23 +33,62 @@
         android:layout_alignParentStart="true"
         />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/weatherIconId"
+        android:weightSum="100"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/dayId"
-        android:layout_toEndOf="@+id/dayId"
-        android:src="@drawable/art_clear"/>
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="18"
-        android:id="@+id/temperatureId"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/weatherIconId"
-        android:layout_toStartOf="@+id/weatherIconId"
-        android:textStyle="bold"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18"
+                android:id="@+id/highTempId"
+                android:textSize="58dp"
+                android:autoText="false"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:id="@+id/lowTempId"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="50">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/art_clear"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/textView"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>
