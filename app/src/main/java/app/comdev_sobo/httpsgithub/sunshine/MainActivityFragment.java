@@ -1,9 +1,11 @@
 package app.comdev_sobo.httpsgithub.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -67,7 +69,9 @@ public class MainActivityFragment extends Fragment {
         } if (id==R.id.action_refresh) {
            FetchWeatherTask weatherTask = new FetchWeatherTask();
             //weatherTask.
-            weatherTask.execute("94043");
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String postalCode = sharedPreferences.getString("location", "94043");
+            weatherTask.execute(postalCode);
             return true;
         }
         return super.onOptionsItemSelected(item);
