@@ -16,6 +16,7 @@
 
 package app.comdev_sobo.httpsgithub.sunshine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -24,18 +25,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class DetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      //  setContentView(R.layout.fragment_detail);
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+       /* Intent intent = getIntent();
+        String message = intent.getStringExtra(Intent.EXTRA_TEXT);
+        TextView forecastString = (TextView) findViewById(R.id.forecastStringId);
+        forecastString.setText(message);*/
     }
 
 
@@ -55,6 +62,8 @@ public class DetailActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -65,6 +74,7 @@ public class DetailActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        //TextView forecastString;
 
         public PlaceholderFragment() {
         }
@@ -74,6 +84,18 @@ public class DetailActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            /*String item = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+            forecastString = (TextView)rootView.findViewById(R.id.forecastStringId);
+            forecastString.setText(item);*/
+
+            Intent intent = getActivity().getIntent();
+            if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+                String forecastString = intent.getStringExtra(Intent.EXTRA_TEXT);
+                TextView forecastTextView = (TextView) rootView.findViewById(R.id.forecastStringId);
+                forecastTextView.setText(forecastString);
+            }
+
+
             return rootView;
         }
     }

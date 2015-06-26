@@ -91,4 +91,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tue 6/24 - Foggy - 21/8"
+        android:id="@+id/forecastStringId"
+        android:layout_below="@+id/dateId"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

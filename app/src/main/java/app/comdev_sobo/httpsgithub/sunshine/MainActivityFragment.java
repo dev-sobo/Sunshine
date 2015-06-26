@@ -54,12 +54,17 @@ public class MainActivityFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.forecastfragment, menu);
+       // inflater.inflate(R.menu.main, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id==R.id.action_refresh) {
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(getActivity(),SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        } if (id==R.id.action_refresh) {
            FetchWeatherTask weatherTask = new FetchWeatherTask();
             //weatherTask.
             weatherTask.execute("94043");
@@ -105,6 +110,7 @@ public class MainActivityFragment extends Fragment {
                 String forecastStr = mForecastAdapter.getItem(position);
                 Intent detailActivityIntent = new Intent(getActivity(),DetailActivity.class);
                 detailActivityIntent.putExtra(Intent.EXTRA_TEXT,forecastStr);
+                
                 startActivity(detailActivityIntent);
             }
         });
