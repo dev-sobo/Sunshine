@@ -26,6 +26,7 @@ public class SettingsActivity extends PreferenceActivity
         // updated when the preference changes.
 
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+
     }
 
     /**
@@ -36,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity
     private void bindPreferenceSummaryToValue(Preference preference) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(this);
-
+        //preference.setOnPreferenceChangeListener(onPreferenceChange(preference,getString(R.string.pref_location_key)));
         // Trigger the listener immediately with the preference's
         // current value.
         onPreferenceChange(preference,

@@ -31,8 +31,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -70,8 +68,9 @@ public class MainActivityFragment extends Fragment {
            FetchWeatherTask weatherTask = new FetchWeatherTask();
             //weatherTask.
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String postalCode = sharedPreferences.getString("location", "94043");
+            String postalCode = sharedPreferences.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
             weatherTask.execute(postalCode);
+            updateWeather();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -88,7 +87,7 @@ public class MainActivityFragment extends Fragment {
         arrayList.add("Weds-Cloudy-72/63");
         arrayList.add("Thurs-Rainy-64/51");
         arrayList.add("Fri-Foggy-70/46");
-        arrayList.add("Sat-Sunny-76/68");*/
+        arrayList.add("Sat-Sunny-76/68");
         String[] data = {
                 "Mon 6/23 - Sunny - 31/17",
                 "Tues 6/24 - Foggy - 21/8",
@@ -98,13 +97,13 @@ public class MainActivityFragment extends Fragment {
                 "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
                 "Sun 6/29 - Sunny - 20/7"
         };
-        List<String> weekForecast = new ArrayList<>(Arrays.asList(data));
+        List<String> weekForecast = new ArrayList<>(Arrays.asList(data));*/
 
         mForecastAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_view,
-                weekForecast);
+                new ArrayList<String>());
         ListView listViewForecast = (ListView) v.findViewById(R.id.listview_forecast);
         listViewForecast.setAdapter(mForecastAdapter);
         listViewForecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,6 +121,19 @@ public class MainActivityFragment extends Fragment {
         return v;
     }
 
+    private void updateWeather() {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = prefs.getString(getString(R.string.pref_location_key),
+                        getString(R.string.pref_location_default));
+            weatherTask.execute(location);
+        }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
